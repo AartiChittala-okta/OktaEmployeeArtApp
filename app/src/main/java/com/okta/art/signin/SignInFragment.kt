@@ -53,7 +53,6 @@ internal class SignInFragment : Fragment() {
                 SignInState.Pending -> {
                     binding.signInButton.isEnabled = false
                     binding.progressBar.visibility = View.VISIBLE
-                    // TODO: show loading
                 }
                 is SignInState.SignedIn -> {
                     val welcomeText = resources.getString(R.string.welcome_user, state.username)
