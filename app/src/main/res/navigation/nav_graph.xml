@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SignInFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -32,7 +32,17 @@
         tools:layout="@layout/fragment_sign_in">
 
         <action
-            android:id="@+id/action_SignInFragment_to_FirstFragment"
+            android:id="@+id/action_SignInFragment_to_GalleryFragment"
+            app:destination="@id/GalleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GalleryFragment"
+        android:name="com.okta.art.gallery.GalleryFragment"
+        android:label="@string/gallery"
+        tools:layout="@layout/fragment_gallery">
+
+        <action
+            android:id="@+id/action_GalleryFragment_to_UploadFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

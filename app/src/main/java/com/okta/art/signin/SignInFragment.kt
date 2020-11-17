@@ -57,7 +57,7 @@ internal class SignInFragment : Fragment() {
                 is SignInState.SignedIn -> {
                     val welcomeText = resources.getString(R.string.welcome_user, state.username)
                     Toast.makeText(requireContext(), welcomeText, Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.action_SignInFragment_to_FirstFragment)
+                    findNavController().navigate(R.id.action_SignInFragment_to_GalleryFragment)
                 }
                 is SignInState.Error -> {
                     val transaction = parentFragmentManager.beginTransaction()
