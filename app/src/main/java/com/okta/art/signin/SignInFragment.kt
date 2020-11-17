@@ -4,15 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.okta.art.R
+import com.okta.art.databinding.FragmentSignInBinding
 
 internal class SignInFragment : Fragment() {
+
+    private var _binding: FragmentSignInBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     private val viewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,25 +29,30 @@ internal class SignInFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.sign_in_button).setOnClickListener {
+        binding.signInButton.setOnClickListener {
             viewModel.signIn(requireActivity())
         }
 
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 SignInState.Idle -> {
-                    // TODO: Hide loading
+                    binding.signInButton.isEnabled = true
+                    binding.progressBar.visibility = View.GONE
                 }
                 SignInState.Pending -> {
+                    binding.signInButton.isEnabled = false
+                    binding.progressBar.visibility = View.VISIBLE
                     // TODO: show loading
                 }
                 is SignInState.SignedIn -> {
@@ -49,10 +61,18 @@ internal class SignInFragment : Fragment() {
                     findNavController().navigate(R.id.action_SignInFragment_to_FirstFragment)
                 }
                 is SignInState.Error -> {
-                    // TODO: Show dialog.
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.add(SignInErrorDialogFragment.newInstance(state.message), null)
+                    transaction.commit()
+
                     viewModel.errorHandled()
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
