@@ -14,7 +14,8 @@ internal object ArtDatabaseLocator {
         database = Room.databaseBuilder(
             applicationContext,
             ArtDatabase::class.java, "art-database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
 
         GlobalScope.launch {
             if (database.artPieceDao().count() == 0L) {

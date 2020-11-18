@@ -11,6 +11,7 @@ import java.util.*
 internal class ArtPiece(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "user") val user: String,
+    @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "file") val file: String,
     @ColumnInfo(name = "upload_date") val uploadDate: Date
 )
