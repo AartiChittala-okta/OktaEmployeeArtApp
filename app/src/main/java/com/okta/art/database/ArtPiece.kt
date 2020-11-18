@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity(tableName = "art_pieces")
 @TypeConverters(value = [DateConverter::class])
-internal class ArtPiece(
+internal data class ArtPiece(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "user") val user: String,
     @ColumnInfo(name = "title") val title: String,

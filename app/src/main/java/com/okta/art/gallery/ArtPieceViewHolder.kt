@@ -1,10 +1,12 @@
 package com.okta.art.gallery
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.okta.art.R
 import com.okta.art.database.ArtPiece
 
@@ -27,5 +29,7 @@ internal class ArtPieceViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
         nameTextView.text = artPiece.title
         userTextView.text = artPiece.user
+        val rawResource = artPiece.file.split(".")[0]
+        imageView.load(Uri.parse("android.resource://com.okta.art/raw/$rawResource"))
     }
 }
