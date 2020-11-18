@@ -5,20 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.okta.art.R
+import com.okta.art.base.BaseFragment
 import com.okta.art.databinding.FragmentSignInBinding
 
-internal class SignInFragment : Fragment() {
-
-    private var _binding: FragmentSignInBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+internal class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -57,7 +51,7 @@ internal class SignInFragment : Fragment() {
                 is SignInState.SignedIn -> {
                     val welcomeText = resources.getString(R.string.welcome_user, state.username)
                     Toast.makeText(requireContext(), welcomeText, Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.action_SignInFragment_to_GalleryFragment)
+                    findNavController().navigate(R.id.action_SignInFragment_to_HomeFragment)
                 }
                 is SignInState.Error -> {
                     val transaction = parentFragmentManager.beginTransaction()

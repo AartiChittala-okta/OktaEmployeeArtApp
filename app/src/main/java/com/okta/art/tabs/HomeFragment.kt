@@ -1,50 +1,41 @@
 package com.okta.art.tabs
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.okta.art.R
-import kotlinx.android.synthetic.main.fragment_first.*
+import com.okta.art.adapters.ViewPagerAdapter
+import com.okta.art.base.BaseFragment
+import com.okta.art.databinding.FragmentHomeBinding
+import com.okta.art.gallery.GalleryFragment
+import com.okta.art.upload.UploadFragment
 
-class HomeFragment : Fragment() {
-
-    companion object {
-        private const val IMAGE_PICK_CODE = 1000
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.upload_button).setOnClickListener {
-            val galleryIntent = Intent(Intent.ACTION_PICK)
-            galleryIntent.type = "image/*"
-            startActivityForResult(
-                galleryIntent,
-                IMAGE_PICK_CODE
-            )
-        }
+        setupTabs()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            image_view.setImageURI(data?.data)
-        }
+    private fun setupTabs() {
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.addFragment(UploadFragment(), "Home")
+        adapter.addFragment(GalleryFragment(), "Fav")
+        adapter.addFragment(GalleryFragment(), "Team")
+        binding.viewPager.adapter = adapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding.tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_home_24)
+        binding.tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_favorite_24)
+        binding.tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_group_24)
     }
 }

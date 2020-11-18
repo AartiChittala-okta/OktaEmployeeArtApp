@@ -6,34 +6,26 @@
     app:startDestination="@id/SignInFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.okta.art.FirstFragment"
-        android:label="@string/upload"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.okta.art.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/SignInFragment"
         android:name="com.okta.art.signin.SignInFragment"
         android:label="@string/sign_in"
         tools:layout="@layout/fragment_sign_in">
 
         <action
-            android:id="@+id/action_SignInFragment_to_GalleryFragment"
-            app:destination="@id/GalleryFragment" />
+            android:id="@+id/action_SignInFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.okta.art.tabs.HomeFragment"
+        android:label="@string/home_title"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+    <fragment
+        android:id="@+id/UploadFragment"
+        android:name="com.okta.art.upload.UploadFragment"
+        android:label="@string/upload"
+        tools:layout="@layout/fragment_upload">
     </fragment>
     <fragment
         android:id="@+id/GalleryFragment"
@@ -43,6 +35,6 @@
 
         <action
             android:id="@+id/action_GalleryFragment_to_UploadFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/UploadFragment" />
     </fragment>
 </navigation>
