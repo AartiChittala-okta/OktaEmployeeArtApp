@@ -1,17 +1,19 @@
 package com.okta.art.tabs
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.fragment.app.activityViewModels
 import com.okta.art.R
 import com.okta.art.adapters.ViewPagerAdapter
 import com.okta.art.base.BaseFragment
 import com.okta.art.databinding.FragmentHomeBinding
 import com.okta.art.gallery.GalleryFragment
+import com.okta.art.okta.OktaViewModel
 import com.okta.art.upload.UploadFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+    private val oktaViewModel by activityViewModels<OktaViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,6 +27,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setupTabs()
+
+        binding.toolbar.inflateMenu(R.menu.menu_main)
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_logout -> {
+                    oktaViewModel.signOut(requireActivity())
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setupTabs() {

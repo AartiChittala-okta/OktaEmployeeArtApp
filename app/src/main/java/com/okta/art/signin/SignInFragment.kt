@@ -5,22 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.okta.art.R
 import com.okta.art.base.BaseFragment
 import com.okta.art.databinding.FragmentSignInBinding
+import com.okta.art.okta.OktaState
+import com.okta.art.okta.OktaViewModel
 
 internal class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
-    private val viewModel: SignInViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.registerActivityForCallback(requireActivity())
-    }
+    private val viewModel: OktaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,25 +36,28 @@ internal class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                SignInState.Idle -> {
+                OktaState.Idle -> {
                     binding.signInButton.isEnabled = true
                     binding.progressBar.visibility = View.GONE
                 }
-                SignInState.Pending -> {
+                OktaState.Pending -> {
                     binding.signInButton.isEnabled = false
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                is SignInState.SignedIn -> {
+                is OktaState.SignedIn -> {
                     val welcomeText = resources.getString(R.string.welcome_user, state.username)
                     Toast.makeText(requireContext(), welcomeText, Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_SignInFragment_to_HomeFragment)
                 }
-                is SignInState.Error -> {
+                is OktaState.Error -> {
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.add(SignInErrorDialogFragment.newInstance(state.message), null)
                     transaction.commit()
 
                     viewModel.errorHandled()
+                }
+                OktaState.SignedOut -> {
+                    // Handled in the Activity.
                 }
             }
         }
