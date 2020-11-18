@@ -63,9 +63,4 @@ internal class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

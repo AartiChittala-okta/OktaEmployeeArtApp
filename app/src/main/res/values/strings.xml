@@ -19,5 +19,8 @@
     <string name="fav_title">Employee Favourites</string>
     <string name="company_title">Okta Employees Artwork</string>
     <string name="upload_by_on">Uploaded by %1$s on %2$s</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="image_title">Image Title</string>
+    <string name="title_required">Title Required</string>
 
 </resources>

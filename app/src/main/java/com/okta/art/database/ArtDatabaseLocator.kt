@@ -2,6 +2,7 @@ package com.okta.art.database
 
 import android.content.Context
 import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ internal object ArtDatabaseLocator {
         ).fallbackToDestructiveMigration()
             .build()
 
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
             if (database.artPieceDao().count() == 0L) {
                 DatabaseSeeder.seed()
             }

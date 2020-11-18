@@ -5,6 +5,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.okta.art.Globals
 import com.okta.jwt.AccessTokenVerifier
 import com.okta.jwt.JwtVerifiers
 import com.okta.oidc.AuthorizationStatus
@@ -14,8 +16,9 @@ import com.okta.oidc.ResultCallback
 import com.okta.oidc.clients.web.WebAuthClient
 import com.okta.oidc.storage.SharedPreferenceStorage
 import com.okta.oidc.util.AuthorizationException
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 import java.lang.RuntimeException
 
@@ -67,15 +70,19 @@ internal class SignInViewModel(
         if (status == AuthorizationStatus.AUTHORIZED) {
             //client is authorized.
             val tokens = webClient.sessionClient.tokens
-            GlobalScope.launch {
+            viewModelScope.launch {
                 try {
-                    val jwt = jwtVerifier.decode(tokens.accessToken)
+                    val jwt = withContext(Dispatchers.IO) {
+                        jwtVerifier.decode(tokens.accessToken)
+                    }
+                    val username = jwt.claims["sub"].toString()
                     state.postValue(
                         SignInState.SignedIn(
                             accessToken = tokens.accessToken!!,
-                            username = jwt.claims["sub"].toString()
+                            username = username
                         )
                     )
+                    Globals.loggedInUser.set(username)
                 } catch (e: RuntimeException) {
                     throw e
                 } catch (e: Exception) {

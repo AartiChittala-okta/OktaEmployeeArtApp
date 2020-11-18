@@ -1,6 +1,7 @@
 package com.okta.art.database
 
-import java.util.*
+import com.okta.art.Globals
+import com.okta.art.R
 
 internal object DatabaseSeeder {
     fun seed() {
@@ -10,8 +11,11 @@ internal object DatabaseSeeder {
             ArtPiece(
                 user = "aarti.chittala@okta.com",
                 title = "Cookies",
-                file = "cookies.jpg",
-                uploadDate = Date()
+                file = ArtPiece.saveImage(
+                    Globals.applicationContext.get().resources.openRawResource(
+                        R.raw.cookies
+                    )
+                )
             )
         )
 
@@ -19,8 +23,11 @@ internal object DatabaseSeeder {
             ArtPiece(
                 user = "aarti.chittala@okta.com",
                 title = "Dog",
-                file = "dog.jpg",
-                uploadDate = Date()
+                file = ArtPiece.saveImage(
+                    Globals.applicationContext.get().resources.openRawResource(
+                        R.raw.dog
+                    )
+                )
             )
         )
 
@@ -28,8 +35,11 @@ internal object DatabaseSeeder {
             ArtPiece(
                 user = "aarti.chittala@okta.com",
                 title = "Elephant",
-                file = "elephant.jpg",
-                uploadDate = Date()
+                file = ArtPiece.saveImage(
+                    Globals.applicationContext.get().resources.openRawResource(
+                        R.raw.elephant
+                    )
+                )
             )
         )
 
@@ -37,8 +47,11 @@ internal object DatabaseSeeder {
             ArtPiece(
                 user = "aarti.chittala@okta.com",
                 title = "Bird",
-                file = "kestrel_bird.png",
-                uploadDate = Date()
+                file = ArtPiece.saveImage(
+                    Globals.applicationContext.get().resources.openRawResource(
+                        R.raw.kestrel_bird
+                    )
+                )
             )
         )
 
@@ -46,8 +59,11 @@ internal object DatabaseSeeder {
             ArtPiece(
                 user = "aarti.chittala@okta.com",
                 title = "Purple",
-                file = "purple.png",
-                uploadDate = Date()
+                file = ArtPiece.saveImage(
+                    Globals.applicationContext.get().resources.openRawResource(
+                        R.raw.purple
+                    )
+                )
             )
         )
     }

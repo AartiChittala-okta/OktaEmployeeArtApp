@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.okta.art.R
 import com.okta.art.database.ArtPiece
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,8 +36,7 @@ internal class ArtPieceViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             artPiece.user,
             artPiece.uploadDate.formattedForDisplay()
         )
-        val rawResource = artPiece.file.split(".")[0]
-        imageView.load(Uri.parse("android.resource://com.okta.art/raw/$rawResource"))
+        imageView.load(File(artPiece.file))
     }
 }
 
