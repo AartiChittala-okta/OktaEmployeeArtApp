@@ -14,4 +14,9 @@
     <string name="sign_in">Sign In</string>
     <string name="welcome_user">Welcome %1$s</string>
     <string name="gallery">Gallery</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_title">Please upload your art files</string>
+    <string name="fav_title">Employee Favourites</string>
+    <string name="company_title">Okta Employees Artwork</string>
+
 </resources>

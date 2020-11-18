@@ -6,6 +6,11 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.okta.art.adapters.ViewPagerAdapter
+import com.okta.art.tabs.FavouritesFragment
+import com.okta.art.tabs.HomeFragment
+import com.okta.art.tabs.TeamCollaborationsFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +23,20 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        setUpTabs()
+    }
+
+    private fun setUpTabs() {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(HomeFragment(), "Home")
+        adapter.addFragment(FavouritesFragment(), "Fav")
+        adapter.addFragment(TeamCollaborationsFragment(), "Team")
+        viewPager.adapter = adapter
+        tabs.setupWithViewPager(viewPager)
+        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_home_24)
+        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_favorite_24)
+        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_group_24)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

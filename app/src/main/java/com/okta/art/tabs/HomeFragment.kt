@@ -1,28 +1,24 @@
-package com.okta.art
+package com.okta.art.tabs
 
 import android.app.Activity
 import android.content.Intent
-import android.content.Intent.ACTION_GET_CONTENT
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import kotlinx.android.synthetic.main.activity_main.*
+import com.okta.art.R
 import kotlinx.android.synthetic.main.fragment_first.*
-import java.util.jar.Manifest
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class FirstFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     companion object {
         private const val IMAGE_PICK_CODE = 1000
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -30,7 +26,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +35,10 @@ class FirstFragment : Fragment() {
         view.findViewById<Button>(R.id.upload_button).setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
-            startActivityForResult(galleryIntent, IMAGE_PICK_CODE)
+            startActivityForResult(
+                galleryIntent,
+                IMAGE_PICK_CODE
+            )
         }
     }
 
