@@ -18,5 +18,6 @@
     <string name="home_title">Please upload your art files</string>
     <string name="fav_title">Employee Favourites</string>
     <string name="company_title">Okta Employees Artwork</string>
+    <string name="upload_by_on">Uploaded by %1$s on %2$s</string>
 
 </resources>
