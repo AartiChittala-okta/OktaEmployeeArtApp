@@ -7,7 +7,10 @@ import androidx.room.Query
 
 @Dao
 internal interface ArtPieceDao {
-    @Query("SELECT * FROM art_pieces")
+    @Query("SELECT * FROM art_pieces ORDER BY title ASC LIMIT 3")
+    fun getFavorites(): PagingSource<Int, ArtPiece>
+
+    @Query("SELECT * FROM art_pieces ORDER BY title ASC")
     fun getAll(): PagingSource<Int, ArtPiece>
 
     @Insert

@@ -6,6 +6,8 @@ import androidx.paging.PagingConfig
 import com.okta.art.database.ArtDatabaseLocator
 
 internal class GalleryViewModel : ViewModel() {
+    var isFavorites: Boolean = false
+
     private val dao = ArtDatabaseLocator.get().artPieceDao()
 
     val allGalleryPieces = Pager(
@@ -111,6 +113,10 @@ internal class GalleryViewModel : ViewModel() {
             maxSize = 200
         )
     ) {
-        dao.getAll()
+        if (isFavorites) {
+            dao.getFavorites()
+        } else {
+            dao.getAll()
+        }
     }.flow
 }

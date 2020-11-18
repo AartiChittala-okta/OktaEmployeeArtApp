@@ -30,8 +30,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setupTabs() {
         val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(UploadFragment(), "Home")
-        adapter.addFragment(GalleryFragment(), "Fav")
-        adapter.addFragment(GalleryFragment(), "Team")
+        adapter.addFragment(GalleryFragment.newInstance(true), "Fav")
+        adapter.addFragment(GalleryFragment.newInstance(false), "Team")
         binding.viewPager.adapter = adapter
         binding.tabs.setupWithViewPager(binding.viewPager)
         binding.tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_home_24)
