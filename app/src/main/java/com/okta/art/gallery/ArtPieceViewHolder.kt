@@ -1,29 +1,32 @@
 package com.okta.art.gallery
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.okta.art.FullscreenFragment
 import com.okta.art.R
 import com.okta.art.database.ArtPiece
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-internal class ArtPieceViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+internal class ArtPieceViewHolder(
+    parent: ViewGroup,
+    private val navController: NavController
+) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.art_piece_item, parent, false)
 ), View.OnClickListener {
     private val nameTextView = itemView.findViewById<TextView>(R.id.title_text_view)!!
     private val userTextView = itemView.findViewById<TextView>(R.id.user_text_view)!!
     private val imageView = itemView.findViewById<ImageView>(R.id.image_view)
     private var artPiece: ArtPiece? = null
-    lateinit var fullscreenFragment: FullscreenFragment
 
     init {
         itemView.setOnClickListener(this)
@@ -47,8 +50,10 @@ internal class ArtPieceViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         imageView.load(File(artPiece.file))
     }
 
-    override fun onClick(v: View?) {
-        Toast.makeText(v!!.context, "Item Clicked", Toast.LENGTH_SHORT).show()
+    override fun onClick(v: View) {
+        val arguments = Bundle()
+        arguments.putInt("artPieceId", artPiece!!.uid)
+        navController.navigate(R.id.action_HomeFragment_to_FullScreenFragment, arguments)
     }
 }
 

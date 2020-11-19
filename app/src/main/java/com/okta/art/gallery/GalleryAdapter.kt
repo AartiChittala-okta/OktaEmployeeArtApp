@@ -1,17 +1,21 @@
 package com.okta.art.gallery
 
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.okta.art.database.ArtPiece
 
-internal class GalleryAdapter : PagingDataAdapter<ArtPiece, ArtPieceViewHolder>(diffCallback) {
+internal class GalleryAdapter(
+    private val navController: NavController
+) : PagingDataAdapter<ArtPiece, ArtPieceViewHolder>(diffCallback) {
     override fun onBindViewHolder(holder: ArtPieceViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtPieceViewHolder =
-        ArtPieceViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtPieceViewHolder {
+        return ArtPieceViewHolder(parent, navController)
+    }
 
     companion object {
         /**

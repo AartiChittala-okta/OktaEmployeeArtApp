@@ -24,13 +24,15 @@
         android:name="com.okta.art.tabs.HomeFragment"
         android:label="@string/home_title"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_HomeFragment_to_FullScreenFragment"
+            app:destination="@id/FullScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/UploadFragment"
         android:name="com.okta.art.upload.UploadFragment"
         android:label="@string/upload"
-        tools:layout="@layout/fragment_upload">
-    </fragment>
+        tools:layout="@layout/fragment_upload"/>
     <fragment
         android:id="@+id/GalleryFragment"
         android:name="com.okta.art.gallery.GalleryFragment"
@@ -40,5 +42,14 @@
         <action
             android:id="@+id/action_GalleryFragment_to_UploadFragment"
             app:destination="@id/UploadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FullScreenFragment"
+        android:name="com.okta.art.FullscreenFragment"
+        android:label="@string/gallery"
+        tools:layout="@layout/fragment_fullscreen">
+        <argument
+            android:name="artPieceId"
+            app:argType="integer" />
     </fragment>
 </navigation>

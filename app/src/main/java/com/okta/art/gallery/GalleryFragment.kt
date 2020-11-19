@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.okta.art.base.BaseFragment
 import com.okta.art.databinding.FragmentGalleryBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -40,7 +41,7 @@ internal class GalleryFragment : BaseFragment<FragmentGalleryBinding>() {
         viewModel.isFavorites = arguments?.getBoolean("isFavorites") ?: false
 
         // Create adapter for the RecyclerView
-        val adapter = GalleryAdapter()
+        val adapter = GalleryAdapter(findNavController())
         binding.recyclerView.adapter = adapter
 
         // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed

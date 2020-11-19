@@ -18,4 +18,7 @@ internal interface ArtPieceDao {
 
     @Query("SELECT COUNT(*) FROM art_pieces")
     fun count(): Long
+
+    @Query("SELECT * FROM art_pieces WHERE uid = :id")
+    fun findById(id: Int): ArtPiece
 }
