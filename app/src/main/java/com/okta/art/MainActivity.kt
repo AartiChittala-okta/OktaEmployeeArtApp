@@ -3,12 +3,13 @@ package com.okta.art
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import com.okta.art.okta.OktaState
 import com.okta.art.okta.OktaViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     private val viewModel: OktaViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
